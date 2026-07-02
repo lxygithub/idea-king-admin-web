@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-// API base URL - change this to your server address
+// API base URL - change to your server address
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://192.227.212.20:18900/api/admin'
 
 const api = axios.create({
