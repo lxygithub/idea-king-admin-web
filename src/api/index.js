@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // API base URL
-const API_BASE = import.meta.env.VITE_API_BASE || 'https://idea-king.ieop.top/api/admin'
+const API_BASE = import.meta.env.VITE_API_BASE || 'https://idea-king-api.ieop.top/api/admin'
 
 const api = axios.create({
   baseURL: API_BASE,
