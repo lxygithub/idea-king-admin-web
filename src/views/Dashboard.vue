@@ -15,7 +15,7 @@
         </el-card>
       </el-col>
       <el-col :span="8">
-        <el-card class="stat-card" shadow="hover">
+        <el-card class="stat-card clickable" shadow="hover" @click="router.push('/files')">
           <div class="stat-icon" style="background: linear-gradient(135deg, #10b981, #059669)">
             <el-icon :size="28"><FolderOpened /></el-icon>
           </div>
@@ -31,9 +31,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { User, FolderOpened } from '@element-plus/icons-vue'
 import api from '../api'
 
+const router = useRouter()
 const data = ref({})
 
 onMounted(async () => {
@@ -86,5 +88,14 @@ onMounted(async () => {
   font-size: 13px;
   color: #9ca3af;
   margin-top: 4px;
+}
+
+.clickable {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.clickable:hover {
+  transform: translateY(-2px);
 }
 </style>
