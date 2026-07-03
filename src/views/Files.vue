@@ -34,8 +34,8 @@
           <div class="file-name-cell">
             <el-image
               v-if="row.type === 'image' && row.s3Key"
-              :src="`/api/files/${row.id}/thumbnail?token=admin`"
-              :preview-src-list="[`/api/files/${row.id}/download?token=admin`]"
+              :src="`${apiBase}/files/${row.id}/thumbnail?token=admin`"
+              :preview-src-list="[`${apiBase}/files/${row.id}/download?token=admin`]"
               fit="cover"
               class="file-thumb"
             />
@@ -150,7 +150,7 @@
     <el-dialog v-model="previewVisible" title="预览" width="80%" top="5vh">
       <el-image
         v-if="previewFileData"
-        :src="`/api/files/${previewFileData.id}/download?token=admin`"
+        :src="`${apiBase}/files/${previewFileData.id}/download?token=admin`"
         fit="contain"
         style="max-height: 70vh; width: 100%"
       />
@@ -165,6 +165,8 @@ import {
   Delete, View, Edit, Plus, Document, VideoPlay, Headset, Picture
 } from '@element-plus/icons-vue'
 import api from '../api'
+
+const apiBase = import.meta.env.VITE_API_BASE || 'https://idea-king-api.ieop.top/api/admin'
 
 const files = ref([])
 const loading = ref(false)
