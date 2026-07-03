@@ -34,8 +34,8 @@
           <div class="file-name-cell">
             <el-image
               v-if="row.type === 'image' && row.s3Key"
-              :src="`${apiBase}/files/${row.id}/thumbnail?token=admin`"
-              :preview-src-list="[`${apiBase}/files/${row.id}/download?token=admin`]"
+              :src="`${fileApiBase}/files/${row.id}/thumbnail?token=admin`"
+              :preview-src-list="[`${fileApiBase}/files/${row.id}/download?token=admin`]"
               fit="cover"
               class="file-thumb"
             />
@@ -150,7 +150,7 @@
     <el-dialog v-model="previewVisible" title="预览" width="80%" top="5vh">
       <el-image
         v-if="previewFileData"
-        :src="`${apiBase}/files/${previewFileData.id}/download?token=admin`"
+        :src="`${fileApiBase}/files/${previewFileData.id}/download?token=admin`"
         fit="contain"
         style="max-height: 70vh; width: 100%"
       />
@@ -167,6 +167,7 @@ import {
 import api from '../api'
 
 const apiBase = import.meta.env.VITE_API_BASE || 'https://idea-king-api.ieop.top/api/admin'
+const fileApiBase = 'https://idea-king-api.ieop.top/api'
 
 const files = ref([])
 const loading = ref(false)
