@@ -166,8 +166,8 @@ import {
 } from '@element-plus/icons-vue'
 import { userApi as api } from '../api'
 
-const apiBase = import.meta.env.VITE_API_BASE || 'https://idea-king-api.ieop.top/api/admin'
-const fileApiBase = 'https://idea-king-api.ieop.top/api'
+const apiBase = import.meta.env.VITE_API_BASE?.replace('/admin', '') || '/api'
+const fileApiBase = '/api'
 
 const files = ref([])
 const loading = ref(false)
