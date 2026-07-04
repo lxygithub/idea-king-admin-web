@@ -160,7 +160,7 @@
     </el-dialog>
 
     <!-- Preview Dialog -->
-    <el-dialog v-model="previewVisible" title="预览" width="80%" top="5vh">
+    <el-dialog v-model="previewVisible" title="预览" width="80%" top="5vh" :z-index="2000" append-to-body>
       <el-image
         v-if="previewFileData"
         :src="getFileUrl(previewFileData.id, 'download')"
