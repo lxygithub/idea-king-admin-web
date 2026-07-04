@@ -1,0 +1,82 @@
+/* Dark theme styles */
+html.dark {
+  background-color: #111827;
+}
+
+html.dark body {
+  background-color: #111827;
+  color: #e5e7eb;
+}
+
+/* Element Plus dark theme overrides */
+html.dark .el-card {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+html.dark .el-table {
+  --el-table-bg-color: #1f2937;
+  --el-table-tr-bg-color: #1f2937;
+  --el-table-header-bg-color: #374151;
+  --el-table-row-hover-bg-color: #374151;
+  --el-table-border-color: #374151;
+  --el-table-text-color: #e5e7eb;
+  --el-table-header-text-color: #e5e7eb;
+}
+
+html.dark .el-input__wrapper {
+  background-color: #374151;
+  box-shadow: 0 0 0 1px #4b5563 inset;
+}
+
+html.dark .el-input__inner {
+  color: #e5e7eb;
+}
+
+html.dark .el-dialog {
+  background-color: #1f2937;
+}
+
+html.dark .el-dialog__title {
+  color: #e5e7eb;
+}
+
+html.dark .el-form-item__label {
+  color: #e5e7eb;
+}
+
+html.dark .el-tag {
+  border-color: #4b5563;
+}
+
+html.dark .el-pagination {
+  --el-pagination-bg-color: #1f2937;
+  --el-pagination-text-color: #9ca3af;
+  --el-pagination-button-bg-color: #374151;
+  --el-pagination-button-color: #9ca3af;
+}
+
+html.dark .el-pagination button:disabled {
+  background-color: #374151;
+}
+
+html.dark .el-pager li {
+  background-color: #374151;
+  color: #9ca3af;
+}
+
+html.dark .el-pager li.is-active {
+  background-color: #6366f1;
+  color: #fff;
+}
+
+/* Page titles */
+html.dark .page-title {
+  color: #e5e7eb;
+}
+
+/* Batch bar */
+html.dark .batch-bar {
+  background-color: #374151;
+  color: #e5e7eb;
+}

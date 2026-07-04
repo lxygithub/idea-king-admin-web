@@ -37,6 +37,16 @@
           </el-icon>
         </div>
         <div class="header-right">
+          <el-button
+            class="theme-toggle"
+            circle
+            @click="toggleTheme"
+          >
+            <el-icon :size="18">
+              <Moon v-if="isDark" />
+              <Sunny v-else />
+            </el-icon>
+          </el-button>
           <el-dropdown trigger="click" @command="handleCommand">
             <span class="user-info">
               <el-icon><UserFilled /></el-icon>
@@ -63,12 +73,12 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessageBox } from 'element-plus'
 import {
   DataBoard, FolderOpened, User, Fold, Expand,
-  UserFilled, ArrowDown, SwitchButton
+  UserFilled, ArrowDown, SwitchButton, Moon, Sunny
 } from '@element-plus/icons-vue'
 import api from '../api'
 
@@ -77,15 +87,33 @@ const router = useRouter()
 
 const isCollapse = ref(false)
 const user = ref(null)
+const isDark = ref(localStorage.getItem('theme') === 'dark')
 
 const activeMenu = computed(() => route.path)
+
+const toggleTheme = () => {
+  isDark.value = !isDark.value
+  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+  applyTheme()
+}
+
+const applyTheme = () => {
+  if (isDark.value) {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+}
 
 onMounted(() => {
   const saved = localStorage.getItem('admin_user')
   if (saved) {
     user.value = JSON.parse(saved)
   }
+  applyTheme()
 })
+
+watch(isDark, applyTheme)
 
 const handleCommand = async (command) => {
   if (command === 'logout') {
@@ -172,6 +200,18 @@ const handleCommand = async (command) => {
 .header-right {
   display: flex;
   align-items: center;
+  gap: 12px;
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 1px solid #374151;
+  color: #9ca3af;
+}
+
+.theme-toggle:hover {
+  color: #6366f1;
+  border-color: #6366f1;
 }
 
 .user-info {
