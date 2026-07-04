@@ -111,6 +111,19 @@
       </el-table-column>
     </el-table>
 
+    <!-- Pagination -->
+    <div class="pagination-container">
+      <el-pagination
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        :page-sizes="[10, 20, 50, 100]"
+        :total="total"
+        layout="total, sizes, prev, pager, next, jumper"
+        @size-change="handleSizeChange"
+        @current-change="handlePageChange"
+      />
+    </div>
+
     <!-- Edit Dialog -->
     <el-dialog v-model="editVisible" title="编辑文件" width="480px">
       <el-form label-position="top">
@@ -172,6 +185,9 @@ const fileApiBase = '/api'
 const files = ref([])
 const loading = ref(false)
 const selectedIds = ref([])
+const total = ref(0)
+const currentPage = ref(1)
+const pageSize = ref(20)
 
 // Edit
 const editVisible = ref(false)
@@ -194,13 +210,30 @@ const typeTagMap = {
 const loadFiles = async () => {
   loading.value = true
   try {
-    const res = await api.get('/files')
+    const res = await api.get('/files', {
+      params: {
+        page: currentPage.value - 1,
+        size: pageSize.value,
+      }
+    })
     files.value = res.files || []
+    total.value = res.total || 0
   } catch (error) {
     ElMessage.error('加载文件失败')
   } finally {
     loading.value = false
   }
+}
+
+const handlePageChange = (page) => {
+  currentPage.value = page
+  loadFiles()
+}
+
+const handleSizeChange = (size) => {
+  pageSize.value = size
+  currentPage.value = 1
+  loadFiles()
 }
 
 const handleSelectionChange = (rows) => {
@@ -396,5 +429,20 @@ onMounted(loadFiles)
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding: 16px 0;
+}
+
+.pagination-container :deep(.el-pagination) {
+  --el-pagination-bg-color: #1f2937;
+  --el-pagination-text-color: #9ca3af;
+  --el-pagination-button-bg-color: #374151;
+  --el-pagination-button-color: #9ca3af;
+  --el-pagination-hover-color: #6366f1;
 }
 </style>
