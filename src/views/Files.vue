@@ -34,8 +34,8 @@
           <div class="file-name-cell">
             <el-image
               v-if="row.type === 'image' && row.s3Key"
-              :src="`${fileApiBase}/files/${row.id}/thumbnail?token=admin`"
-              :preview-src-list="[`${fileApiBase}/files/${row.id}/download?token=admin`]"
+              :src="getFileUrl(row.id, 'thumbnail')"
+              :preview-src-list="[getFileUrl(row.id, 'download')]"
               fit="cover"
               class="file-thumb"
             />
@@ -163,7 +163,7 @@
     <el-dialog v-model="previewVisible" title="预览" width="80%" top="5vh">
       <el-image
         v-if="previewFileData"
-        :src="`${fileApiBase}/files/${previewFileData.id}/download?token=admin`"
+        :src="getFileUrl(previewFileData.id, 'download')"
         fit="contain"
         style="max-height: 70vh; width: 100%"
       />
@@ -181,6 +181,11 @@ import { userApi as api } from '../api'
 
 const apiBase = import.meta.env.VITE_API_BASE?.replace('/admin', '') || '/api'
 const fileApiBase = '/api'
+
+const getFileUrl = (id, type = 'download') => {
+  const token = localStorage.getItem('token') || ''
+  return `${fileApiBase}/files/${id}/${type}?token=${token}`
+}
 
 const files = ref([])
 const loading = ref(false)
