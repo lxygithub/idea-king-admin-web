@@ -4,24 +4,13 @@
 
     <el-row :gutter="20">
       <el-col :span="8">
-        <el-card class="stat-card" shadow="hover">
-          <div class="stat-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6)">
-            <el-icon :size="28"><User /></el-icon>
-          </div>
-          <div class="stat-info">
-            <div class="stat-value">{{ data.user_count ?? '-' }}</div>
-            <div class="stat-label">用户总数</div>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="8">
         <el-card class="stat-card clickable" shadow="hover" @click="router.push('/files')">
           <div class="stat-icon" style="background: linear-gradient(135deg, #10b981, #059669)">
             <el-icon :size="28"><FolderOpened /></el-icon>
           </div>
           <div class="stat-info">
             <div class="stat-value">{{ data.file_count ?? '-' }}</div>
-            <div class="stat-label">文件总数</div>
+            <div class="stat-label">我的文件</div>
           </div>
         </el-card>
       </el-col>
@@ -32,15 +21,16 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { User, FolderOpened } from '@element-plus/icons-vue'
-import api from '../api'
+import { FolderOpened } from '@element-plus/icons-vue'
+import { userApi } from '../api'
 
 const router = useRouter()
 const data = ref({})
 
 onMounted(async () => {
   try {
-    data.value = await api.get('/dashboard')
+    const res = await userApi.get('/files', { params: { size: 1 } })
+    data.value = { file_count: res.total || 0 }
   } catch (error) {
     console.error('Failed to load dashboard:', error)
   }

@@ -95,8 +95,9 @@ const handleCommand = async (command) => {
         cancelButtonText: '取消',
         type: 'warning',
       })
-      await api.post('/auth/logout')
+      await api.post('/auth/logout', {}, { baseURL: '/api' })
       localStorage.removeItem('admin_user')
+      localStorage.removeItem('token')
       router.push('/login')
     } catch {
       // Cancelled

@@ -68,20 +68,17 @@ const handleLogin = async () => {
 
   loading.value = true
   try {
-    const res = await api.post('/auth/login', form)
-    if (res.success) {
-      localStorage.setItem('admin_user', JSON.stringify({
-        id: res.user_id,
-        username: res.username,
-        is_admin: res.is_admin,
-      }))
-      // Save JWT token for API calls
-      localStorage.setItem('token', res.access_token)
-      ElMessage.success('登录成功')
-      router.push('/')
-    } else {
-      ElMessage.error(res.error || '登录失败')
-    }
+    // Use user API for login (returns JWT token)
+    const res = await api.post('/auth/login', form, { baseURL: '/api' })
+    localStorage.setItem('admin_user', JSON.stringify({
+      id: res.user_id,
+      username: res.username,
+      is_admin: res.is_admin,
+    }))
+    // Save JWT token for API calls
+    localStorage.setItem('token', res.access_token)
+    ElMessage.success('登录成功')
+    router.push('/')
   } catch (error) {
     ElMessage.error('登录失败')
   } finally {
