@@ -170,6 +170,8 @@ import {
 } from '@element-plus/icons-vue'
 import { userApi as api } from '../api'
 
+defineOptions({ name: 'Files' })
+
 const router = useRouter()
 
 const apiBase = import.meta.env.VITE_API_BASE?.replace('/admin', '') || '/api'

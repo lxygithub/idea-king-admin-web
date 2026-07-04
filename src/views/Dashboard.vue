@@ -24,6 +24,8 @@ import { useRouter } from 'vue-router'
 import { FolderOpened } from '@element-plus/icons-vue'
 import { userApi } from '../api'
 
+defineOptions({ name: 'Dashboard' })
+
 const router = useRouter()
 const data = ref({})
 
