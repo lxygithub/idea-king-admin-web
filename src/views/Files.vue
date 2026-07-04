@@ -35,7 +35,6 @@
             <el-image
               v-if="row.type === 'image' && row.s3Key"
               :src="getFileUrl(row.id, 'thumbnail')"
-              :preview-src-list="[getFileUrl(row.id, 'download')]"
               fit="cover"
               class="file-thumb"
             />
