@@ -161,12 +161,14 @@
 
     <!-- Preview Dialog -->
     <el-dialog v-model="previewVisible" title="预览" width="80%" top="5vh" :z-index="2000" append-to-body>
-      <el-image
-        v-if="previewFileData"
-        :src="getFileUrl(previewFileData.id, 'download')"
-        fit="contain"
-        style="max-height: 70vh; width: 100%"
-      />
+      <div class="preview-container">
+        <el-image
+          v-if="previewFileData"
+          :src="getFileUrl(previewFileData.id, 'download')"
+          fit="contain"
+          class="preview-image"
+        />
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -449,5 +451,20 @@ onMounted(loadFiles)
   --el-pagination-button-bg-color: #374151;
   --el-pagination-button-color: #9ca3af;
   --el-pagination-hover-color: #6366f1;
+}
+
+.preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  max-height: 70vh;
+  overflow: hidden;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
 }
 </style>
