@@ -160,7 +160,7 @@
     </el-dialog>
 
     <!-- Preview Dialog -->
-    <el-dialog v-model="previewVisible" title="预览" width="80%" top="5vh" :z-index="2000" append-to-body>
+    <el-dialog v-model="previewVisible" title="预览" width="80%" top="5vh" :z-index="9999" append-to-body destroy-on-close>
       <div class="preview-container">
         <el-image
           v-if="previewFileData"
@@ -466,5 +466,13 @@ onMounted(loadFiles)
   max-width: 100%;
   max-height: 70vh;
   object-fit: contain;
+}
+
+:deep(.el-dialog__wrapper) {
+  z-index: 9999 !important;
+}
+
+:deep(.v-modal) {
+  z-index: 9998 !important;
 }
 </style>
