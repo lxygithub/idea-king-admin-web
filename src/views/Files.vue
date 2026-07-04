@@ -158,28 +158,19 @@
         <el-button type="primary" :loading="saving" @click="saveEdit">保存</el-button>
       </template>
     </el-dialog>
-
-    <!-- Preview Dialog -->
-    <el-dialog v-model="previewVisible" title="预览" width="80%" top="5vh" :z-index="9999" append-to-body destroy-on-close>
-      <div class="preview-container">
-        <el-image
-          v-if="previewFileData"
-          :src="getFileUrl(previewFileData.id, 'download')"
-          fit="contain"
-          class="preview-image"
-        />
-      </div>
-    </el-dialog>
   </div>
 </template>
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import {
   Delete, View, Edit, Plus, Document, VideoPlay, Headset, Picture
 } from '@element-plus/icons-vue'
 import { userApi as api } from '../api'
+
+const router = useRouter()
 
 const apiBase = import.meta.env.VITE_API_BASE?.replace('/admin', '') || '/api'
 const fileApiBase = '/api'
@@ -201,10 +192,6 @@ const editVisible = ref(false)
 const editForm = reactive({ id: '', name: '', tags: [] })
 const newTag = ref('')
 const saving = ref(false)
-
-// Preview
-const previewVisible = ref(false)
-const previewFileData = ref(null)
 
 const typeTagMap = {
   image: 'success',
@@ -264,8 +251,10 @@ const formatDate = (dateStr) => {
 }
 
 const previewFile = (row) => {
-  previewFileData.value = row
-  previewVisible.value = true
+  router.push({
+    name: 'ImagePreview',
+    query: { id: row.id, name: row.name }
+  })
 }
 
 const editFile = (row) => {
@@ -451,28 +440,5 @@ onMounted(loadFiles)
   --el-pagination-button-bg-color: #374151;
   --el-pagination-button-color: #9ca3af;
   --el-pagination-hover-color: #6366f1;
-}
-
-.preview-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 400px;
-  max-height: 70vh;
-  overflow: hidden;
-}
-
-.preview-image {
-  max-width: 100%;
-  max-height: 70vh;
-  object-fit: contain;
-}
-
-:deep(.el-dialog__wrapper) {
-  z-index: 9999 !important;
-}
-
-:deep(.v-modal) {
-  z-index: 9998 !important;
 }
 </style>

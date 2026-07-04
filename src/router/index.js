@@ -8,6 +8,12 @@ const routes = [
     meta: { requiresAuth: false },
   },
   {
+    path: '/image-preview',
+    name: 'ImagePreview',
+    component: () => import('../views/ImagePreview.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/',
     component: () => import('../views/Layout.vue'),
     meta: { requiresAuth: true },
