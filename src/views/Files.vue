@@ -164,7 +164,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import {
   Delete, View, Edit, Plus, Document, VideoPlay, Headset, Picture
 } from '@element-plus/icons-vue'
-import api from '../api'
+import { userApi as api } from '../api'
 
 const apiBase = import.meta.env.VITE_API_BASE || 'https://idea-king-api.ieop.top/api/admin'
 const fileApiBase = 'https://idea-king-api.ieop.top/api'
@@ -194,7 +194,8 @@ const typeTagMap = {
 const loadFiles = async () => {
   loading.value = true
   try {
-    files.value = await api.get('/files')
+    const res = await api.get('/files')
+    files.value = res.files || []
   } catch (error) {
     ElMessage.error('加载文件失败')
   } finally {

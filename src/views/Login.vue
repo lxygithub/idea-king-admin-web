@@ -75,6 +75,8 @@ const handleLogin = async () => {
         username: res.username,
         is_admin: res.is_admin,
       }))
+      // Save JWT token for API calls
+      localStorage.setItem('token', res.access_token)
       ElMessage.success('登录成功')
       router.push('/')
     } else {
