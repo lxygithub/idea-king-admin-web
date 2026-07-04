@@ -37,6 +37,7 @@
               :src="getFileUrl(row.id, 'thumbnail')"
               fit="cover"
               class="file-thumb"
+              @click.stop="previewFile(row)"
             />
             <el-icon v-else class="file-icon" :class="`file-icon-${row.type}`">
               <Document v-if="row.type === 'text'" />

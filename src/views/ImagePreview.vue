@@ -8,19 +8,18 @@
       <span class="file-name">{{ fileName }}</span>
     </div>
     <div class="preview-content">
-      <el-image
+      <img
         v-if="fileId"
         :src="fileUrl"
-        fit="contain"
         class="preview-image"
-        :preview-src-list="[fileUrl]"
+        alt="预览图片"
       />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ArrowLeft } from '@element-plus/icons-vue'
 
@@ -40,14 +39,18 @@ const goBack = () => {
   router.back()
 }
 
-// ESC 键返回
-onMounted(() => {
-  const handleKeydown = (e) => {
-    if (e.key === 'Escape') {
-      goBack()
-    }
+const handleKeydown = (e) => {
+  if (e.key === 'Escape') {
+    goBack()
   }
+}
+
+onMounted(() => {
   document.addEventListener('keydown', handleKeydown)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleKeydown)
 })
 </script>
 
@@ -71,6 +74,7 @@ onMounted(() => {
   padding: 16px 24px;
   background: rgba(0, 0, 0, 0.8);
   border-bottom: 1px solid #333;
+  flex-shrink: 0;
 }
 
 .back-btn {
@@ -94,16 +98,15 @@ onMounted(() => {
 
 .preview-content {
   flex: 1;
+  overflow: auto;
   display: flex;
   justify-content: center;
-  align-items: center;
-  overflow: hidden;
   padding: 20px;
 }
 
 .preview-image {
   max-width: 100%;
-  max-height: 100%;
+  height: auto;
   object-fit: contain;
 }
 </style>
