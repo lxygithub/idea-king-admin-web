@@ -104,7 +104,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { ArrowLeft, User, Key, Edit } from '@element-plus/icons-vue'
-import { userApi as api } from '../api'
+import api from '../api'
 
 const route = useRoute()
 const loading = ref(false)

@@ -66,12 +66,16 @@
       </el-header>
 
       <el-main class="layout-main">
-        <router-view v-slot="{ Component }">
-          <keep-alive :include="['Files', 'Dashboard']">
-            <component :is="Component" />
-          </keep-alive>
-        </router-view>
-        <BuildFooter />
+        <div class="layout-main-inner">
+          <div class="main-content">
+            <router-view v-slot="{ Component }">
+              <keep-alive :include="['Files', 'Dashboard']">
+                <component :is="Component" />
+              </keep-alive>
+            </router-view>
+          </div>
+          <BuildFooter />
+        </div>
       </el-main>
     </el-container>
   </el-container>
@@ -234,6 +238,18 @@ const handleCommand = async (command) => {
 
 .layout-main {
   background: #111827;
-  padding: 20px;
+  padding: 20px 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-main-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
 }
 </style>

@@ -1,43 +1,45 @@
 <template>
   <div class="login-container">
-    <div class="login-card">
-      <div class="login-logo">
-        <span>💡</span>
-      </div>
-      <h1 class="login-title">点子王</h1>
-      <p class="login-subtitle">管理后台</p>
+    <div class="login-center">
+      <div class="login-card">
+        <div class="login-logo">
+          <span>💡</span>
+        </div>
+        <h1 class="login-title">点子王</h1>
+        <p class="login-subtitle">管理后台</p>
 
-      <el-form ref="formRef" :model="form" :rules="rules" @submit.prevent="handleLogin">
-        <el-form-item prop="username">
-          <el-input
-            v-model="form.username"
-            placeholder="用户名"
-            prefix-icon="User"
-            size="large"
-          />
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input
-            v-model="form.password"
-            type="password"
-            placeholder="密码"
-            prefix-icon="Lock"
-            size="large"
-            show-password
-          />
-        </el-form-item>
-        <el-form-item>
-          <el-button
-            type="primary"
-            size="large"
-            :loading="loading"
-            class="login-btn"
-            @click="handleLogin"
-          >
-            登录
-          </el-button>
-        </el-form-item>
-      </el-form>
+        <el-form ref="formRef" :model="form" :rules="rules" @submit.prevent="handleLogin">
+          <el-form-item prop="username">
+            <el-input
+              v-model="form.username"
+              placeholder="用户名"
+              prefix-icon="User"
+              size="large"
+            />
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input
+              v-model="form.password"
+              type="password"
+              placeholder="密码"
+              prefix-icon="Lock"
+              size="large"
+              show-password
+            />
+          </el-form-item>
+          <el-form-item>
+            <el-button
+              type="primary"
+              size="large"
+              :loading="loading"
+              class="login-btn"
+              @click="handleLogin"
+            >
+              登录
+            </el-button>
+          </el-form-item>
+        </el-form>
+      </div>
     </div>
     <BuildFooter />
   </div>
@@ -93,9 +95,15 @@ const handleLogin = async () => {
 .login-container {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
+  background: #1a1a2e;
+}
+
+.login-center {
+  flex: 1;
+  display: flex;
   align-items: center;
   justify-content: center;
-  background: #1a1a2e;
 }
 
 .login-card {

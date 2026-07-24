@@ -72,7 +72,7 @@ import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { Plus, View, Delete } from '@element-plus/icons-vue'
-import { userApi as api } from '../api'
+import api from '../api'
 
 const router = useRouter()
 const users = ref([])
@@ -96,6 +96,10 @@ const loadUsers = async () => {
   try {
     users.value = await api.get('/users')
   } catch (error) {
+    if (error.response?.status === 401) {
+      router.push('/login')
+      return
+    }
     ElMessage.error('加载用户失败')
   } finally {
     loading.value = false
