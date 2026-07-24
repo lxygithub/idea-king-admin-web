@@ -81,6 +81,10 @@ const handleLogin = async () => {
     }))
     // Save JWT token for API calls
     localStorage.setItem('token', res.access_token)
+    // Also login via admin API to establish session cookie for admin endpoints
+    if (res.is_admin) {
+      await api.post('/auth/login', form).catch(() => {})
+    }
     ElMessage.success('登录成功')
     router.push('/')
   } catch (error) {
