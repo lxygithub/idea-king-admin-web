@@ -39,6 +39,7 @@
         </el-form-item>
       </el-form>
     </div>
+    <BuildFooter />
   </div>
 </template>
 
@@ -46,6 +47,7 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import BuildFooter from '../components/BuildFooter.vue'
 import api from '../api'
 
 const router = useRouter()

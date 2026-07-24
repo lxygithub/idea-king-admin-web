@@ -71,6 +71,7 @@
             <component :is="Component" />
           </keep-alive>
         </router-view>
+        <BuildFooter />
       </el-main>
     </el-container>
   </el-container>
@@ -84,6 +85,7 @@ import {
   DataBoard, FolderOpened, User, Fold, Expand,
   UserFilled, ArrowDown, SwitchButton, Moon, Sunny
 } from '@element-plus/icons-vue'
+import BuildFooter from '../components/BuildFooter.vue'
 import api from '../api'
 
 const route = useRoute()

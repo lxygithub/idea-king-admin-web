@@ -15,6 +15,7 @@
         alt="预览图片"
       />
     </div>
+    <BuildFooter />
   </div>
 </template>
 
@@ -22,6 +23,7 @@
 import { computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ArrowLeft } from '@element-plus/icons-vue'
+import BuildFooter from '../components/BuildFooter.vue'
 
 const route = useRoute()
 const router = useRouter()
