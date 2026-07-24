@@ -1,6 +1,6 @@
 <template>
   <div class="build-footer">
-    <span>Build：{{ buildTime }}</span>
+    <span>Last Build：{{ buildTime }}</span>
   </div>
 </template>
 
@@ -8,9 +8,13 @@
 import { computed } from 'vue'
 
 const buildTime = computed(() => {
+  // Convert UTC ISO to China timezone (UTC+8)
   const d = new Date(__BUILD_TIME__)
-  const pad = (n) => String(n).padStart(2, '0')
-  return `${d.getFullYear()}年${pad(d.getMonth() + 1)}月${pad(d.getDate())}日${pad(d.getHours())}:${pad(d.getMinutes())}`
+  const opts = { timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }
+  const parts = new Intl.DateTimeFormat('zh-CN', opts).formatToParts(d)
+  const m = {}
+  parts.forEach(p => { if (p.type !== 'literal') m[p.type] = p.value })
+  return `${m.year}年${m.month}月${m.day}日${m.hour}:${m.minute}`
 })
 </script>
 
