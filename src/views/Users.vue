@@ -72,7 +72,7 @@ import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { Plus, View, Delete } from '@element-plus/icons-vue'
-import api from '../api'
+import { userApi as api } from '../api'
 
 const router = useRouter()
 const users = ref([])
